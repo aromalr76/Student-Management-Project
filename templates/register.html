@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="{% static 'css/reg.css' %}" rel="stylesheet">
+</head>
+<body class="reg">
+    <h1 align="center">Registration page</h1>
+<form action="regdata" method="post">
+    {% csrf_token %}
+    <h3 style="color:black">{{data}}</h3>
+    <table align="center">
+        <tr>
+            <td>Username:</td>
+            <td><input type="text" name="tbun"></td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td><input type="email" name="tbemail"></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input type="password" name="tbpass"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Submit" name="tbsubmit"></td>
+        </tr>
+    </table>
+
+
+
+</form>
+
+</body>
+</html>

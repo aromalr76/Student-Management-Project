@@ -1,0 +1,46 @@
+{% extends 'navbar.html' %}
+{% block content %}
+<h2 align="center">Add Student data</h2>
+<form  method="post">
+    {% csrf_token %}
+    <table align="center">
+        <tr>
+            <td>name:</td>
+            <td><input type="text" name="tbname" value="{{data.sname}}"></td>
+        </tr>
+        <tr>
+            <td>Age:</td>
+            <td><input type="number" name="tbage" value="{{data.sage}}"></td>
+        </tr>
+        <tr>
+            <td>Phno:</td>
+            <td><input type="number" name="tbphno" value="{{data.sphno}}"></td>
+        </tr>
+        <tr>
+            <td>city:</td>
+            <td><select name="ddlcity" >
+                <option selected>{{data.scity}}</option>
+                {% for i in city_data %}
+                <option>{{i.city_name}}</option>
+                {% endfor %}
+            </select> </td>
+        </tr>
+        <tr>
+            <td>Course:</td>
+            <td><select name="ddlcourse">
+                <option selected>{{data.scourse}}</option>
+                {% for i in course_data %}
+                <option>{{i.course_name}}</option>
+                {% endfor %}
+            </select> </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Submit" name="tbsubmit"></td>
+        </tr>
+    </table>
+
+
+
+</form>
+{% endblock %}

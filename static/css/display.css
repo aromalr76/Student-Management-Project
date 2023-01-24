@@ -1,0 +1,9 @@
+body
+{
+    margin:1rem;
+}
+table,td,th,a
+{
+    background-color:blue;
+    color:white;
+}
