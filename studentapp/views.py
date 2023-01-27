@@ -1,4 +1,5 @@
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.http import HttpResponse
@@ -6,9 +7,13 @@ from django.shortcuts import render, redirect
 
 
 # Create your views here.
+from django.views.decorators.cache import cache_control, never_cache
+
 from studentapp.models import City, Course, Student
 
 
+@cache_control(no_cache=True,revalidate=True,nostore=True)
+@never_cache
 def reg_fun(request):
     return render(request, 'register.html', {'data': ''})
 
@@ -38,23 +43,30 @@ def logdata_fun(request):
 
     if user1 is not None:
         if user1.is_superuser:
+            login(request, user1)
             return redirect('home')
         else:
             return render(request, 'login.html', {'data': 'user is not a superuser'})
     else:
         return render(request, 'login.html', {'data': 'Enter proper username and password'})
 
-
+@login_required
+@cache_control(no_cache=True,revalidate=True,nostore=True)
+@never_cache
 def home_fun(request):
     return render(request, 'home.html')
 
-
+@login_required
+@cache_control(no_cache=True,revalidate=True,nostore=True)
+@never_cache
 def add_fun(request):
     city = City.objects.all()
     course = Course.objects.all()
     return render(request, 'add_students.html', {'city_data': city, 'course_data': course})
 
-
+@login_required
+@cache_control(no_cache=True,revalidate=True,nostore=True)
+@never_cache
 def read_fun(request):
     s1 = Student()
     s1.sname = request.POST['tbname']
@@ -65,12 +77,16 @@ def read_fun(request):
     s1.save()
     return redirect('add')
 
-
+@login_required
+@cache_control(no_cache=True,revalidate=True,nostore=True)
+@never_cache
 def display_fun(request):
     s1 = Student.objects.all()
     return render(request, 'display.html', {'data': s1})
 
-
+@login_required
+@cache_control(no_cache=True,revalidate=True,nostore=True)
+@never_cache
 def update_fun(request,id):
     s1 = Student.objects.get(id=id)
     c1 = City.objects.all()
@@ -86,13 +102,17 @@ def update_fun(request,id):
 
     return render(request, 'update.html', {'data': s1, 'city_data': c1, 'course_data': cc1})
 
-
+@login_required
+@cache_control(no_cache=True,revalidate=True,nostore=True)
+@never_cache
 def delete_fun(request,id):
     s1 = Student.objects.get(id=id)
     s1.delete()
 
     return redirect('display')
 
-
+@cache_control(no_cache=True,revalidate=True,nostore=True)
+@never_cache
 def log_out_fun(request):
+    logout(request)
     return redirect('log')

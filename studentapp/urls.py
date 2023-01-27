@@ -2,10 +2,10 @@ from django.urls import path
 
 from studentapp import views
 
-urlpatterns =[
+urlpatterns = [
     path('', views.log_fun, name='log'),
     path('logdata', views.logdata_fun),
-    path('reg',views.reg_fun, name='reg'),#it will redirect to rigister.html page
+    path('reg', views.reg_fun, name='reg'),#it will redirect to rigister.html page
     path('regdata', views.regdata_fun),  #it will create superuser account
     path('home', views.home_fun, name='home'),
     path('add_students', views.add_fun, name='add'),
